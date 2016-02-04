@@ -6,8 +6,11 @@ var
   file = path.basename(__filename.replace(/.js$/,''))
   ; 
 
-extract(file, function(results){
-  console.log(results);
+extract(file, function(data){
+	transform(data, function(data){
+		load(data, function(results){
+  		console.log(results);					
+		})
+	})
 });
-
 

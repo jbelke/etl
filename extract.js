@@ -19,10 +19,6 @@ var loadQuery = function(file, cb) {
 };
 
 var executeQuery = function(sql, cb) {
-	runQuery(sql, cb);
-};
-
-var runQuery = function(sql, cb) {
 	var connection 	= new mssql.Connection(db_config, function(err) {
 		if (err) console.log(err);
 		var r = new mssql.Request(connection);
