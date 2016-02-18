@@ -1,8 +1,8 @@
 var 
   path = require('path'),
-  extract = require('./extract').extract,
-  transform = require('./transform').transform,
-  load = require('./load').load,
+  extract = require('./../extract').extract,
+  transform = require('./../transform').transform,
+  load = require('./../load').load,
   file = path.basename(__filename.replace(/.js$/,''))
   ; 
 
@@ -13,8 +13,13 @@ var sql = 'insert into transaction('+
 
 extract(file, function(data){
 	transform(data, function(data){
-		load(data, sql, function(results){
-  		console.log(results);					
+		load(data, sql, function(){
+  		console.log('Data inserted.');
+
+      setTimeout(function(){
+        process.exit();
+      }, 1 * 60 * 1000);
+
 		});
 	});
 });
