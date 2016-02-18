@@ -11,7 +11,7 @@ var extract = function(file, cb){
 };
 
 var loadQuery = function(file, cb) {
-	var sqlFile = fs.createReadStream(path.join('./sql',file+'.sql'))
+	var sqlFile = fs.createReadStream(path.join('./sql',file+'.sql'));
 	sqlFile.on('data',function(chunk){data+=chunk;});
 	sqlFile.on('end',function(){
 		executeQuery(data, cb);		
