@@ -1,7 +1,7 @@
-# datamart
+# ETL
 
 ## What 
-ETL (extract, transform, load) data from a `MS SQL` database to a `postgres` database. 
+Nightly ETL (extract, transform, load) data from a `MS SQL` database to a `postgres` database. 
 
 
 ## Get started
@@ -12,6 +12,6 @@ ETL (extract, transform, load) data from a `MS SQL` database to a `postgres` dat
 ## Misc
 
 - Start `postgres` locally! `$ postgres -D /usr/local/var/postgres9.5/ &`
-.
-.
-.
+
+
+

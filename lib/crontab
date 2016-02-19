@@ -1,7 +1,7 @@
 ##### VARIABLES #####
 	PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/skilbjo/.local/bin:/home/skilbjo/bin
 	MAILTO=jskilbeck@yapstone.com
-	JOBS="/home/skilbjo/app/etl/jobs"
+	JOBS="/home/skilbjo/node/app/etl/jobs"
 
 ##### Daily #####
 	## Transaction
