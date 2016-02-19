@@ -1,0 +1,14 @@
+##### VARIABLES #####
+	PATH=/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/home/skilbjo/.local/bin:/home/skilbjo/bin
+	MAILTO=jskilbeck@yapstone.com
+	JOBS="/home/skilbjo/app/etl/jobs"
+
+##### Daily #####
+	## Transaction
+		10 16 18 * * skilbjo cd $JOBS ; node load_transaction.js >/dev/null
+
+##### Monthly #####
+
+
+
+

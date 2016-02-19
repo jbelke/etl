@@ -12,3 +12,10 @@ create table transaction(
 	Card_Number varchar(45),
 	Txn_Amount decimal(48,2)
 );
+
+
+create table company (
+	PlatformId integer,
+	AccountId varchar(45),
+	Name varchar(45)
+);
