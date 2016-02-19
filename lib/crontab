@@ -5,7 +5,7 @@
 
 ##### Daily #####
 	## Transaction
-		10 16 18 * * skilbjo cd $JOBS ; node load_transaction.js >/dev/null
+		15 16 18 * * skilbjo cd $JOBS ; node load_transaction.js >/dev/null
 
 ##### Monthly #####
 
