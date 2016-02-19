@@ -1,7 +1,7 @@
 
 declare @start as date = '2016-01-30', @end as date = '2016-01-30'
 
-select
+select top 20
 	txn.PostDate_R Date,txn.PlatformId, c.SoftwareName,c.ParentAccountId,c.ParentName, c.ChildAccountId, c.ChildName ,
 	'4445'+cast(rp.merchantId as varchar) Merchant_Id,
 	txn.IdClassId TxnIdClassId, cast(rp.TransferLogId as varchar)+':'+cast(rp.TransferLogClassId as varchar) TransferLogIdClassId , 	
