@@ -1,7 +1,15 @@
 
-declare @start as date = '2016-01-30', @end as date = '2016-01-30'
+declare @now date, @start date, @end date 
 
-select top 20
+set @now = getdate()
+set @start = dateadd(mm,(year(@now)- 1900) * 12 + month(@now) - 1 -1 , 0)
+set @end   = dateadd(d,-1 , dateadd(mm,(year(@now)- 1900) * 12 + month(@now)- 1 , 0))  
+
+-- For inital load
+set @start = '2016-01-01'
+set @end = '2016-02-29'
+
+select
 	txn.PostDate_R Date,txn.PlatformId, c.SoftwareName,c.ParentAccountId,c.ParentName, c.ChildAccountId, c.ChildName ,
 	'4445'+cast(rp.merchantId as varchar) Merchant_Id,
 	txn.IdClassId TxnIdClassId, cast(rp.TransferLogId as varchar)+':'+cast(rp.TransferLogClassId as varchar) TransferLogIdClassId , 	
