@@ -5,7 +5,7 @@ var
   email = require('./../email').email,
   load = require('./../load').load,
   source_db = 'crostoli',  // crostoli or finance
-  destination_db = require('./../lib/config/localhost_db.js'),
+  destination_db = require('./../lib/config/finance_db.js'),
   file = path.basename(__filename.replace(/.js$/,''))
   ;
 
