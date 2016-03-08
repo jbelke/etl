@@ -21,7 +21,7 @@ from
   left join rpReportsTemp.rp.Transfer rp on rp.id = left(txn.IdClassId, charindex(':', txn.IdClassId) -1) and rp.classId = right(txn.IdClassId, (len(txn.idclassid) - charindex(':', txn.IdClassId)))
 where
 	txn.TransactionCycleId in (1,9)
-	and txn.PlatformId in (1)
+	and txn.PlatformId in (1,2,3)
 	and txn.PostDate_R between @start and @end
 	and txn.ProcessorId not in (14,16)
 	and txn.ProcessorId in (22)
