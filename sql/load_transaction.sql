@@ -11,7 +11,8 @@ set @end = '2016-02-29'
 
 select
 	txn.PostDate_R Date,txn.PlatformId, c.SoftwareName,c.ParentAccountId,c.ParentName, c.ChildAccountId, c.ChildName ,
-	'4445'+cast(rp.merchantId as varchar) Merchant_Id,
+	'4445'+cast(rp.merchantId as varchar) Merchant_Id, 
+	case when txn.TransactionCycleId in (1) then 'Gross' else 'Refund' end as Transaction_Type ,
 	txn.IdClassId TxnIdClassId, cast(rp.TransferLogId as varchar)+':'+cast(rp.TransferLogClassId as varchar) TransferLogIdClassId , 	
 	rp.uiAccountNumber Card_Number , txn.Amount
 from
@@ -28,6 +29,7 @@ where
 group by
 	txn.PostDate_R ,txn.PlatformId, c.SoftwareName,c.ParentAccountId,c.ParentName, c.ChildAccountId, c.ChildName ,
 	'4445'+cast(rp.merchantId as varchar) ,
+	case when txn.TransactionCycleId in (1) then 'Gross' else 'Refund' end ,
 	txn.IdClassId , cast(rp.TransferLogId as varchar)+':'+cast(rp.TransferLogClassId as varchar)  , 	
 	rp.uiAccountNumber  , txn.Amount
 

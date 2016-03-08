@@ -7,6 +7,7 @@ create table transaction(
 	ChildAccountId varchar(45),
 	ChildName varchar(95),
 	Merchant_Id varchar(95),
+	Transaction_Type varchar(45),
 	TxnIdClassId varchar(45),
 	TransferLogIdClassId varchar(45),
 	Card_Number varchar(45),
