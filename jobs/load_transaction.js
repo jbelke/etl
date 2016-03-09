@@ -10,9 +10,11 @@ var
   ;
 
 var sql = 'insert into transaction('+
-    ' Date, PlatformId, Software, ParentAccountId, ParentName, ChildAccountId, ChildName, ' +
-    ' Merchant_Id, TxnIdClassId, TransferLogIdClassId, Card_Number, Txn_Amount ' + 
-    ' ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)';
+    ' Date, Merchant_Id, PlatformId, ChildAccountId, ' +
+    ' Transaction_Type, Issuer_Type, '+
+    ' TxnIdClassId, TransferLogIdClassId, '+
+    ' Card_Number, Txn_Amount ' + 
+    ' ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)';
 
 extract(source_db, file, function(data){
 	transform(data, function(data){
