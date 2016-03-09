@@ -31,7 +31,7 @@ where
 group by
 	txn.PostDate_R ,txn.PlatformId, c.SoftwareName,c.ParentAccountId,c.ParentName, c.ChildAccountId, c.ChildName ,
 	'4445'+cast(rp.merchantId as varchar) ,
-	case when txn.TransactionCycleId in (1) then 'Gross' else 'Refund' end ,  i.CardType as Issuer_Type ,
+	case when txn.TransactionCycleId in (1) then 'Gross' else 'Refund' end ,  i.CardType  ,
 	txn.IdClassId , cast(rp.TransferLogId as varchar)+':'+cast(rp.TransferLogClassId as varchar)  , 	
 	rp.uiAccountNumber  , txn.Amount
 
