@@ -19,9 +19,9 @@ from
 	inner join ETLStaging..FinanceParentTable c on txn.PlatformId = c.PlatformId and txn.Ref_CompanyId = c.ChildCompanyId
 	inner join YapstoneDM..PaymentType pt on txn.PaymentTypeId = pt.PaymentTypeId
 	inner join ETLStaging..FinanceIssuerType i on txn.PlatformId = i.PlatformId  and txn.IdClassId = i.IdClassId
-  left join rpReportsTemp.rp.Transfer rp on rp.id = left(txn.IdClassId, charindex(':', txn.IdClassId) -1) and rp.classId = right(txn.IdClassId, (len(txn.idclassid) - charindex(':', txn.IdClassId)))
-  left join ipReportsTemp..Transfer ip on ip.id = left(txn.IdClassId, charindex(':', txn.IdClassId) -1) and ip.classId = right(txn.IdClassId, (len(txn.idclassid) - charindex(':', txn.IdClassId)))
-  left join haReportsTemp..Transfer ha on ha.id = left(txn.IdClassId, charindex(':', txn.IdClassId) -1) and ha.classId = right(txn.IdClassId, (len(txn.idclassid) - charindex(':', txn.IdClassId)))    
+  left join rpReportsTemp.rp.Transfer rp on rp.id = left(txn.IdClassId, charindex(':', txn.IdClassId) -1) and rp.classId = right(txn.IdClassId, (len(txn.idclassid) - charindex(':', txn.IdClassId))) and txn.PlatformId in (1)
+  left join ipReportsTemp..Transfer ip on ip.id = left(txn.IdClassId, charindex(':', txn.IdClassId) -1) and ip.classId = right(txn.IdClassId, (len(txn.idclassid) - charindex(':', txn.IdClassId))) and txn.PlatformId in (2)
+  left join haReportsTemp..Transfer ha on ha.id = left(txn.IdClassId, charindex(':', txn.IdClassId) -1) and ha.classId = right(txn.IdClassId, (len(txn.idclassid) - charindex(':', txn.IdClassId)))  and txn.PlatformId in (3)
 where
 	txn.TransactionCycleId in (1,9)
 	and txn.PlatformId in (1,2,3)
