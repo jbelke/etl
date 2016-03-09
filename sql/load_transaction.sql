@@ -1,5 +1,4 @@
 
-
 declare @now date, @start date, @end date 
 
 set @now = getdate()
@@ -8,8 +7,9 @@ set @end   = dateadd(d,-1 , dateadd(mm,(year(@now)- 1900) * 12 + month(@now)- 1 
 
 -- For inital load
 set @start = '2016-01-01'
-set @end = '2016-01-10'
---set @end = '2016-02-29'
+set @end = '2016-02-29'
+--set @end = '2016-01-10'
+
 
 if object_id('tempdb..#Prod') is not null drop table #Prod
 select * into #Prod from (
@@ -77,7 +77,7 @@ group by
 	txn.IdClassId , Prod.Draft_Locator , Prod.Card_Number, txn.Amount
 ) src
 
-select count(*) from #Data
+select * from #Data
 
 
 

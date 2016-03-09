@@ -9,12 +9,11 @@ var
   file = path.basename(__filename.replace(/.js$/,''))
   ;
 
-var sql = 'insert into transaction('+
-    ' Date, PlatformId, ChildAccountId , Merchant_Id, ' +
-    ' Transaction_Type, Issuer_Type, '+
-    ' Txn_Ref, Draft_Locator, '+
-    ' Card_Number, Txn_Amount ' + 
-    ' ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)';
+var sql = 'insert into ParentTable('+
+    ' PlatformId, ChildCompanyId, ChildAccountId, ChildName, ChildAggregateId, ' +
+    ' ParentCompanyId, ParentAccountId, ParentName, ParentAggregateId, '+
+    ' DateFirstSeen, DateLastSeen, SoftwareName, Vertical '+
+    ' ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)';
 
 extract(source_db, file, function(data){
 	transform(data, function(data){
