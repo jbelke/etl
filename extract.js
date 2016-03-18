@@ -22,7 +22,7 @@ var loadQuery = function(db, file, subfolder, cb) {
 
 var executeMSSQL = function(sql, subfolder, cb) {
 	var mssql = require('mssql'),
-	  source_db = subfolder ? require('./../../lib/config/crostoli_db.js') : require('./../lib/config/crostoli_db.js')
+	  source_db = require('./lib/config/crostoli_db.js')
 	  ;
 
 	var connection 	= new mssql.Connection(source_db, function(err) {
@@ -36,7 +36,7 @@ var executeMSSQL = function(sql, subfolder, cb) {
 };
 
 var executePostgres = function(sql, subfolder, cb) {
-	var source_db = subfolder ? require('./../lib/config/finance_db.js') : require('./lib/config/finance_db.js');
+	var source_db = require('./lib/config/finance_db.js');
 	source_db.connect(function(err){
 		source_db.query(sql, function(err,result){
 			if (err) console.log(err);
