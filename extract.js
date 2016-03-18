@@ -9,7 +9,7 @@ var extract = function(db, file, subfolder, cb){
 };
 
 var loadQuery = function(db, file, subfolder, cb) {
-	var sqlFile = subfolder ? fs.createReadStream(path.join('./../../sql',subfoldder,file+'.sql')) : fs.createReadStream(path.join('./../sql',file+'.sql'));
+	var sqlFile = subfolder ? fs.createReadStream(path.join('./../../sql',subfolder,file+'.sql')) : fs.createReadStream(path.join('./../sql',file+'.sql'));
 	sqlFile.on('data',function(chunk){data+=chunk;});
 	sqlFile.on('end',function(){
 		if(db === 'crostoli') {
