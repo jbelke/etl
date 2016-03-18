@@ -19,7 +19,7 @@ var sql = 'insert into ParentTable('+
     ' DateFirstSeen, DateLastSeen, SoftwareName, Vertical '+
     ' ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)';
 
-extract(source_db, file, function(data){
+extract(source_db, file, subfolder, function(data){
 	transform(data, function(data){
 		load(data, destination_db, sql, function(){
       email(file, function(){
