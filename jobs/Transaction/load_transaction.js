@@ -1,12 +1,16 @@
 var 
   path = require('path'),
-  extract = require('./../extract').extract,
-  transform = require('./../transform').transform,
-  email = require('./../email').email,
-  load = require('./../load').load,
+  flag = (process.argv[2] ==='-f') ? true : false,  
+  extract         = flag ? require('./../../extract').extract           : require('./../extract').extract,
+  transform       = flag ? require('./../../transform').transform       : require('./../transform').transform, 
+  load            = flag ? require('./../../load').load                 : require('./../load').load,   
+  email           = flag ? require('./../../email').email               : require('./../email').email, 
+  destination_db  = flag ? require('./../../lib/config/finance_db.js')  : require('./../lib/config/finance_db.js') ,   
   source_db = 'crostoli',  // crostoli or finance
-  destination_db = require('./../lib/config/finance_db.js'),
-  file = path.basename(__filename.replace(/.js$/,''))
+  file = path.basename(__filename.replace(/.js$/,'')),
+  dir = __dirname.split(path.sep),
+  folder = flag ? dir[dir.length-2] : dir.pop() ,
+  subfolder = flag ? subfolder = dir.pop() : null
   ;
 
 var sql = 'insert into transaction('+

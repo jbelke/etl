@@ -8,4 +8,4 @@ select
 from 
 	ETLStaging..FinanceParentTable c
 where
-	PlatformId in (2)
+	PlatformId in (1)
