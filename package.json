@@ -1,11 +1,11 @@
 {
-  "name": "datamart",
+  "name": "etl",
   "main": "app.js",
   "version": "0.0.1",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "https://github.com/skilbjo/datamart.git"
+    "url": "https://github.com/skilbjo/etl.git"
   },
   "engines": {
     "node": "5.4.1"
