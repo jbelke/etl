@@ -14,7 +14,7 @@ create table transaction(
 	Txn_Amount decimal(48,2)
 );
 
-create table parenttable (
+create table Parent (
 	PlatformId int,
 	ChildCompanyId varchar(45),
 	ChildAccountId varchar(45),

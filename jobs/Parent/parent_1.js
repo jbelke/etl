@@ -13,7 +13,7 @@ var
   subfolder = flag ? subfolder = dir.pop() : null
   ;
 
-var sql = 'insert into ParentTable('+
+var sql = 'insert into Parent('+
     ' PlatformId, ChildCompanyId, ChildAccountId, ChildName, ChildAggregateId, ' +
     ' ParentCompanyId, ParentAccountId, ParentName, ParentAggregateId, '+
     ' DateFirstSeen, DateLastSeen, SoftwareName, Vertical '+
