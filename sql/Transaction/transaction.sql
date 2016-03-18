@@ -1,4 +1,4 @@
-
+T
 declare @now date, @start date, @end date 
 
 set @now = getdate()

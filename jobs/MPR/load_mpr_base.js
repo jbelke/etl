@@ -1,12 +1,17 @@
 var 
   path = require('path'),
-  extract = require('./../extract').extract,
-  transform = require('./../transform').transform,
-  email = require('./../email').email,
-  load = require('./../load').load,
+
+  flag = (process.argv[2] ==='-f') ? true : false,  
+  extract         = flag ? require('./../../extract').extract           : require('./../extract').extract,
+  transform       = flag ? require('./../../transform').transform       : require('./../transform').transform, 
+  load            = flag ? require('./../../load').load                 : require('./../load').load,   
+  email           = flag ? require('./../../email').email               : require('./../email').email, 
+  destination_db  = flag ? require('./../../lib/config/finance_db.js')  : require('./../lib/config/finance_db.js') ,   
   source_db = 'crostoli',  // crostoli or finance
-  destination_db = require('./../lib/config/finance_db.js'),
-  file = path.basename(__filename.replace(/.js$/,''))
+  file = path.basename(__filename.replace(/.js$/,'')),
+  dir = __dirname.split(path.sep),
+  folder = flag ? dir[dir.length-2] : dir.pop() ,
+  subfolder = flag ? subfolder = dir.pop() : null
   ;
 
 var sql = 'insert into mpr_base('+
@@ -17,7 +22,7 @@ var sql = 'insert into mpr_base('+
     ' Credit_Card_USD, Debit_Card_USD, Amex_Processing_USD, Credit_Card_Net_USD, Debit_Card_Net_USD, Amex_Processing_Net_USD ' + 
     ' ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33)';
 
-extract(source_db, file, function(data){
+extract(source_db, file, subfolder, function(data){
 	transform(data, function(data){
 		load(data, destination_db, sql, function(){
       email(file, function(){
