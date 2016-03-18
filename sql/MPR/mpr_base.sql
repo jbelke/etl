@@ -98,18 +98,18 @@ group by
 	isnull(txn.Vertical,billing.Vertical) , coalesce(txn.SoftwareName,billing.SoftwareName,'Non-Affiliated') , isnull(txn.ParentAccountId,billing.ParentAccountId) ,isnull(txn.ParentName,billing.ParentName) , 
 	isnull(txn.Fee_Payment_Type,'PropertyPaid') ,isnull(txn.Payment_Type,billing.Payment_Type) ,isnull(txn.Currency,'USD')
 
---select * from #MPR 
+select * from #BaseMPR 
 
-select 
-	PlatformId, 
-	convert(varchar,cast(sum(TPV_USD) as money),1) TPV_USD , 
-	convert(varchar,cast(sum(Card_Volume_USD) as money),1) Card_Volume_USD ,	
-	convert(varchar,cast(sum(Revenue_USD) as money),1) Revenue_USD
-from 
-	#BaseMPR
-where
-	Gateway in ('YapProcessing')
-group by
-	Platformid      
-order by
-	PlatformId
+-- select 
+-- 	PlatformId, 
+-- 	convert(varchar,cast(sum(TPV_USD) as money),1) TPV_USD , 
+-- 	convert(varchar,cast(sum(Card_Volume_USD) as money),1) Card_Volume_USD ,	
+-- 	convert(varchar,cast(sum(Revenue_USD) as money),1) Revenue_USD
+-- from 
+-- 	#BaseMPR
+-- where
+-- 	Gateway in ('YapProcessing')
+-- group by
+-- 	Platformid      
+-- order by
+-- 	PlatformId
