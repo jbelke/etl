@@ -22,7 +22,7 @@ var loadQuery = function(db, file, subfolder, cb) {
 
 var executeMSSQL = function(sql, subfolder, cb) {
 	var mssql = require('mssql'),
-	  var source_db = subfolder ? require('./../lib/config/crostoli_db.js') : require('./lib/config/crostoli_db.js')
+	  source_db = subfolder ? require('./../lib/config/crostoli_db.js') : require('./lib/config/crostoli_db.js')
 	  ;
 
 	var connection 	= new mssql.Connection(source_db, function(err) {
