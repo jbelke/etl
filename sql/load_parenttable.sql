@@ -1,3 +1,5 @@
+
+
 select 
 	distinct
 	PlatformId, ChildCompanyId, ChildAccountId, ChildName, ChildAggregateId, 
@@ -5,3 +7,5 @@ select
 	DateFirstSeen, DateLastSeen, SoftwareName, Vertical
 from 
 	ETLStaging..FinanceParentTable c
+where
+	PlatformId in (1)
