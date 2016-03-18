@@ -37,7 +37,7 @@ Property_Fee, Net_Settled_Fee_USD, Convenience_Fee_USD, Net_Settled_Fee_Net_USD,
 Credit_Card_USD, Debit_Card_USD, Amex_Processing_USD, Credit_Card_Net_USD, Debit_Card_Net_USD, Amex_Processing_Net_USD 
 
 
-create table base_mpr (
+create table mpr_base (
 	Year int,
 	Month int,
 	Date date,
