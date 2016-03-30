@@ -5,6 +5,7 @@ var
   transform       = flag ? require('./../../transform').transform       : require('./../transform').transform, 
   load            = flag ? require('./../../load').load                 : require('./../load').load,   
   email           = flag ? require('./../../email').email               : require('./../email').email, 
+  // destination_db  = flag ? require('./../../lib/config/localhost_db.js')  : require('./../lib/config/localhost_db.js') ,  
   destination_db  = flag ? require('./../../lib/config/finance_db.js')  : require('./../lib/config/finance_db.js') ,   
   source_db = 'crostoli',  // crostoli or finance
   file = path.basename(__filename.replace(/.js$/,'')),
@@ -22,7 +23,9 @@ var sql = 'insert into mpr_base('+
     ' ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33)';
 
 extract(source_db, file, subfolder, function(data){
+  // console.log(data);
 	transform(data, function(data){
+    // console.log(data);
 		load(data, destination_db, sql, function(){
       email(file, function(){
         console.log('Data inserted.');        
