@@ -2,7 +2,7 @@
 declare @now as date, @start as date, @end as date 
 
 set @now = getdate()
-set @start = '2010-01-01'--'2013-01-01'--'2016-02-29'--'2013-01-01'--dateadd(mm,(year(@now)- 1900) * 12 + month(@now) - 1 -1 , 0) 
+set @start = '2013-01-01'--'2016-02-29'--'2013-01-01'--dateadd(mm,(year(@now)- 1900) * 12 + month(@now) - 1 -1 , 0) 
 set @end = dateadd(d,-1 , dateadd(mm,(year(@now)- 1900) * 12 + month(@now)- 1 , 0))  
 
 if object_id('tempdb..#Cycle') is not null drop table #Cycle
@@ -23,9 +23,13 @@ select Year, Month, Date, PlatformId, Vertical, SoftwareName, ParentAccountId, P
 	sum(Txn_Amount) Txn_Amount, sum(Revenue) Revenue, sum(Txn_Count) Txn_Count 
 	from (
 		select billing.Year, billing.Month , 
-
-		cast(dateadd(d, 0 , dateadd(mm, (Billing.Year - 1900) * 12 + Billing.Month, 0)) as date) as Date, 
-
+		
+		
+		--cast(dateadd(d, -1 , dateadd(mm, (Billing.Year - 1900) * 12 + Billing.Month, 0)) as date) as Date, 
+		dateadd(hh, datediff(hh, getdate(),getutcdate()) +1, cast(
+			dateadd(d, -1 , dateadd(mm, (Billing.Year - 1900) * 12 + Billing.Month, 0))
+		as datetime)) as Date,	
+			
 		billing.PlatformId 
 		, c.Vertical , c.SoftwareName , c.ParentAccountId, c.ParentName , billing.PaymentType  ,
 		sum(case when billing.PaymentType not in ('International Surcharge') then billing.Volume else 0 end) Txn_Amount,
@@ -35,9 +39,13 @@ select Year, Month, Date, PlatformId, Vertical, SoftwareName, ParentAccountId, P
 			ETLStaging.dbo.PropertyPaidBilling billing
 			inner join ETLStaging.dbo.FinanceParentTable c on billing.PlatformID = c.PlatformId and billing.ChildAccountID = c.ChildAccountId
 		group by billing.Year, billing.Month, 
-
-		cast(dateadd(d, 0 , dateadd(mm, (Billing.Year - 1900) * 12 + Billing.Month, 0)) as date), 
-
+		
+		
+		--cast(dateadd(d, -1 , dateadd(mm, (Billing.Year - 1900) * 12 + Billing.Month, 0)) as date), 
+		dateadd(hh, datediff(hh, getdate(),getutcdate()) +1, cast(
+			dateadd(d, -1 , dateadd(mm, (Billing.Year - 1900) * 12 + Billing.Month, 0))
+		as datetime)),	
+		
 		billing.PlatformId,
 			c.Vertical, c.SoftwareName,c.ParentAccountId , c.ParentName , billing.PaymentType
 	) src
@@ -52,9 +60,12 @@ where Date between @start and @end
 
 if object_id('tempdb..#Txn') is not null drop table #Txn   
 select year(txn.PostDate_R) Year, month(txn.PostDate_R) Month,
-	
-	cast(dateadd(d,  1, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) as date) as Date, 
-	
+
+--cast(dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) as date) as Date, 
+	dateadd(hh, datediff(hh, getdate(),getutcdate()) +1, cast(
+		dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) 
+	as datetime)) Date,	
+
 	txn.PlatformId,
 	c.Vertical , case when txn.ProcessorId in (14) then 'GatewayOnly' when txn.ProcessorId <> 14 then 'YapProcessing' end as Gateway_Type , c.SoftwareName, c.ParentAccountId , c.ParentName ,
 	case when abs(txn.AmtNetConvFee) = 0 then 'PropertyPaid' when abs(txn.AmtNetConvFee) <> 0 then 'ConvFee' end as Fee_Payment_Type ,
@@ -85,9 +96,13 @@ where
 	and txn.PostDate_R between  @start and @end
 group by year(txn.PostDate_R), month(txn.PostDate_R),
 
-	cast(dateadd(d,  1, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) as date), 
+--cast(dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) as date), 
+	dateadd(hh, datediff(hh, getdate(),getutcdate()) +1, cast(
+		dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0)))
+	as datetime)),	
 
-	txn.PlatformId,
+
+txn.PlatformId,
 	c.Vertical , case when txn.ProcessorId in (14) then 'GatewayOnly' when txn.ProcessorId <> 14 then 'YapProcessing' end , c.SoftwareName , c.ParentAccountId , c.ParentName ,
 	case when abs(txn.AmtNetConvFee) = 0 then 'PropertyPaid' when abs(txn.AmtNetConvFee) <> 0 then 'ConvFee' end ,
 	case  when pt.Name in ('Visa','Master Card','Discover','Visa Debit','MC Debit') then 'Card' when pt.Name in ('eCheck','Scan') then 'ACH_Scan'  when pt.Name in ('American Express') then case when txn.ProcessorId in (22) and txn.Ref_BatchTypeId in (1) then 'AmEx-Processing' else 'AmEx' end  when pt.name in ('Cash') then 'Cash'     end ,
@@ -114,9 +129,8 @@ group by
 	isnull(txn.Vertical,billing.Vertical) , coalesce(txn.SoftwareName,billing.SoftwareName,'Non-Affiliated') , isnull(txn.ParentAccountId,billing.ParentAccountId) ,isnull(txn.ParentName,billing.ParentName) , 
 	isnull(txn.Fee_Payment_Type,'PropertyPaid') ,isnull(txn.Payment_Type,billing.Payment_Type) ,isnull(txn.Currency,'USD')
 
--- select * from #BaseMPR 
 
-select * from #BaseMPR 
+select * from #BaseMPR where Vertical in ('HA')
 
 -- select 
 -- 	PlatformId, 
