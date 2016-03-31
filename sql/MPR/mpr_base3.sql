@@ -26,7 +26,7 @@ select Year, Month, Date, PlatformId, Vertical, SoftwareName, ParentAccountId, P
 		
 		
 		--cast(dateadd(d, -1 , dateadd(mm, (Billing.Year - 1900) * 12 + Billing.Month, 0)) as date) as Date, 
-		dateadd(hh, datediff(hh, getdate(),getutcdate()), cast(
+		dateadd(hh, datediff(hh, getdate(),getutcdate()) +1, cast(
 			dateadd(d, -1 , dateadd(mm, (Billing.Year - 1900) * 12 + Billing.Month, 0))
 		as datetime)) as Date,	
 			
@@ -42,7 +42,7 @@ select Year, Month, Date, PlatformId, Vertical, SoftwareName, ParentAccountId, P
 		
 		
 		--cast(dateadd(d, -1 , dateadd(mm, (Billing.Year - 1900) * 12 + Billing.Month, 0)) as date), 
-		dateadd(hh, datediff(hh, getdate(),getutcdate()), cast(
+		dateadd(hh, datediff(hh, getdate(),getutcdate()) +1, cast(
 			dateadd(d, -1 , dateadd(mm, (Billing.Year - 1900) * 12 + Billing.Month, 0))
 		as datetime)),	
 		
@@ -62,7 +62,7 @@ if object_id('tempdb..#Txn') is not null drop table #Txn
 select year(txn.PostDate_R) Year, month(txn.PostDate_R) Month,
 
 --cast(dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) as date) as Date, 
-	dateadd(hh, datediff(hh, getdate(),getutcdate()), cast(
+	dateadd(hh, datediff(hh, getdate(),getutcdate()) +1, cast(
 		dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) 
 	as datetime)) Date,	
 
@@ -97,7 +97,7 @@ where
 group by year(txn.PostDate_R), month(txn.PostDate_R),
 
 --cast(dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) as date), 
-	dateadd(hh, datediff(hh, getdate(),getutcdate()), cast(
+	dateadd(hh, datediff(hh, getdate(),getutcdate()) +1, cast(
 		dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0)))
 	as datetime)),	
 
