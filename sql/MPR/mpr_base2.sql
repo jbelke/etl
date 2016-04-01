@@ -99,7 +99,7 @@ group by
 	isnull(txn.Fee_Payment_Type,'PropertyPaid') ,isnull(txn.Payment_Type,billing.Payment_Type) ,isnull(txn.Currency,'USD')
 
 
-select * from #BaseMPR where Vertical in ('HA')
+select * from #BaseMPR --where Vertical in ('HA')
 
 -- select 
 -- 	PlatformId, 
