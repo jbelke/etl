@@ -109,7 +109,10 @@ txn.PlatformId,
 	cur.CharCode
 			 
 if object_id('tempdb..#BaseMPR') is not null drop table #BaseMPR   
-select isnull(txn.Year, billing.Year) Year, isnull(txn.Month, billing.Month) Month, isnull(txn.Date, billing.Date) Date, isnull(txn.PlatformId,billing.PlatformId) PlatformId,isnull(txn.Gateway_Type,'YapProcessing') Gateway,
+select isnull(txn.Year, billing.Year) Year, isnull(txn.Month, billing.Month) Month, 
+cast(isnull(txn.Date, billing.Date) as varchar) Date, 
+
+isnull(txn.PlatformId,billing.PlatformId) PlatformId,isnull(txn.Gateway_Type,'YapProcessing') Gateway,
 	isnull(txn.Vertical,billing.Vertical) Vertical, coalesce(txn.SoftwareName,billing.SoftwareName,'Non-Affiliated')  SoftwareName, isnull(txn.ParentAccountId,billing.ParentAccountId) as ParentAccountId,isnull(txn.ParentName,billing.ParentName) as ParentName ,
 	isnull(txn.Fee_Payment_Type,'PropertyPaid') FeePaymentType ,isnull(txn.Payment_Type,billing.Payment_Type) PaymentTypeGroup ,isnull(txn.Currency,'USD') Currency,
 	sum( txn.TPV ) TPV , sum( txn.TPV_Net) TPV_Net ,sum( txn.TPV_USD) TPV_USD ,sum( txn.TPV_Net_USD) TPV_Net_USD  ,sum( isnull(billing.Txn_Amount, 0) ) TPV_Billing ,
@@ -125,7 +128,9 @@ from
 	full outer join #Billing billing on billing.Year = txn.Year and billing.Month = txn.Month  and billing.PlatformId = txn.PlatformId and billing.ParentAccountId = txn.ParentAccountId and txn.Fee_Payment_Type = 'PropertyPaid'  
 		and txn.Payment_Type = billing.Payment_Type and txn.Gateway_Type = 'YapProcessing'
 group by      
-	isnull(txn.Year, billing.Year) ,isnull(txn.Month, billing.Month) , isnull(txn.Date, billing.Date), isnull(txn.PlatformId,billing.PlatformId), isnull(txn.Gateway_Type,'YapProcessing') ,
+	isnull(txn.Year, billing.Year) ,isnull(txn.Month, billing.Month) , 
+	cast(isnull(txn.Date, billing.Date) as varchar), 
+	isnull(txn.PlatformId,billing.PlatformId), isnull(txn.Gateway_Type,'YapProcessing') ,
 	isnull(txn.Vertical,billing.Vertical) , coalesce(txn.SoftwareName,billing.SoftwareName,'Non-Affiliated') , isnull(txn.ParentAccountId,billing.ParentAccountId) ,isnull(txn.ParentName,billing.ParentName) , 
 	isnull(txn.Fee_Payment_Type,'PropertyPaid') ,isnull(txn.Payment_Type,billing.Payment_Type) ,isnull(txn.Currency,'USD')
 
