@@ -26,11 +26,11 @@ extract(source_db, file, subfolder, function(data){
   console.log(data);
 	transform(data, function(data){
     console.log(data);
-		load(data, destination_db, sql, function(){
-      email(file, function(){
-        console.log('Data inserted.');        
-      });
-		});
+		// load(data, destination_db, sql, function(){
+      // email(file, function(){
+      //   console.log('Data inserted.');        
+      // });
+		// });
 	});
 });
 
