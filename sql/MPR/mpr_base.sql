@@ -17,8 +17,8 @@ select * into #Cycle from (
 if object_id('tempdb..#Billing') is not null drop table #Billing
 select * into #Billing from (
 select Year, Month, Date, PlatformId, Vertical, SoftwareName, ParentAccountId, ParentName,
- 	case when PaymentType in ('Visa','MasterCard','Discover','Debit','International Surcharge') then 'Card' when PaymentType in ('eCheck','e-Check','Scan','Scanned Checks') then 'ACH_Scan' when PaymentType in ('American Express','AmericanExpress','Amex') then 
-	case when Txn_Amount >= 200 and (Revenue / Txn_Amount)*100 > 1.5 then 'Amex-Processing' else 'Amex' end
+ 	case when PaymentType in ('Visa','MasterCard','Discover','Debit','International Surcharge') then 'Card' when PaymentType in ('eCheck','e-Check','Scan','Scanned Checks') then 'ACH_Scan' when PaymentType in ('American Express','AmericanExpress','AmEx') then 
+	case when Txn_Amount >= 200 and (Revenue / Txn_Amount)*100 > 1.5 then 'AmEx-Processing' else 'AmEx' end
 	end as Payment_Type,
 	sum(Txn_Amount) Txn_Amount, sum(Revenue) Revenue, sum(Txn_Count) Txn_Count 
 	from (
@@ -38,8 +38,8 @@ select Year, Month, Date, PlatformId, Vertical, SoftwareName, ParentAccountId, P
 			c.Vertical, c.SoftwareName,c.ParentAccountId , c.ParentName , billing.PaymentType
 	) src
 group by Year, Month, Date, PlatformId, Vertical, SoftwareName, ParentAccountId, ParentName,
- 	case when PaymentType in ('Visa','MasterCard','Discover','Debit','International Surcharge') then 'Card' when PaymentType in ('eCheck','e-Check','Scan','Scanned Checks') then 'ACH_Scan' when PaymentType in ('American Express','AmericanExpress','Amex') then 
-	case when Txn_Amount >= 200 and (Revenue / Txn_Amount)*100 > 1.5 then 'Amex-Processing' else 'Amex' end
+ 	case when PaymentType in ('Visa','MasterCard','Discover','Debit','International Surcharge') then 'Card' when PaymentType in ('eCheck','e-Check','Scan','Scanned Checks') then 'ACH_Scan' when PaymentType in ('American Express','AmericanExpress','AmEx') then 
+	case when Txn_Amount >= 200 and (Revenue / Txn_Amount)*100 > 1.5 then 'AmEx-Processing' else 'AmEx' end
 	end
 ) src
 where Date between @start and @end
