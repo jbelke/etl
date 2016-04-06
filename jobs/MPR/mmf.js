@@ -14,7 +14,7 @@ var
   subfolder = flag ? subfolder = dir.pop() : null
   ;
 
-var sql = 'insert into mpr_base('+
+var sql = 'insert into mmf('+
     ' Date, PlatformId, Vertical, ' +
     ' ParentAccountId, ParentName, ' +
     ' MMF ' +
