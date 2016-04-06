@@ -30,12 +30,15 @@ create table Parent (
 	Vertical varchar(45)
 );
 
- Year, Month, Date, PlatformId, Gateway, Vertical, SoftwareName,
-ParentAccountId, ParentName, FeePaymentType, PaymentTypeGroup, Currency, 
-TPV, TPV_Net, TPV_USD, TPV_Net_USD, TPV_Billing, Card_Volume_USD, Card_Volume_Net_USD, Txn_Count,
-Property_Fee, Net_Settled_Fee_USD, Convenience_Fee_USD, Net_Settled_Fee_Net_USD, Convenience_Fee_Net_USD, Revenue_USD, Revenue_Net_USD, 
-Credit_Card_USD, Debit_Card_USD, Amex_Processing_USD, Credit_Card_Net_USD, Debit_Card_Net_USD, Amex_Processing_Net_USD 
 
+create table mmf (
+	Date date,
+	PlatformId int,
+	Vertical varchar(45),
+	ParentAccountId  varchar(45),
+	ParentName varchar(95),
+	MMF decimal(48,2)
+);
 
 create table mpr_base (
 	Year int,

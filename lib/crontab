@@ -5,10 +5,14 @@
 
 ##### Daily #####
 	## Transaction
-		25 12 7 * * skilbjo cd $JOBS ; node load_transaction.js >/dev/null
+		25 12 7 * * skilbjo cd $JOBS"/Transaction" ; node load_transaction.js >/dev/null
 
 ##### Monthly #####
+	## MPR
+		0 20 5 * * skilbjo cd $JOBS"/MPR" ; node mmf.js >/dev/null
 
+	## MMF
+		0 20 5 * * skilbjo cd $JOBS"/MPR" ; node mmf.js >/dev/null
 
 
 
