@@ -30,6 +30,41 @@ create table Parent (
 	Vertical varchar(45)
 );
 
+create table analytics (
+	Year int,
+	Month int,
+	Date date,
+	PlatformId int,
+	Gateway varchar(45),
+	Vertical varchar(45),
+	PaymentType varchar(45),
+	Network varchar(45),
+	PaymentTypeGroup varchar(45),
+	Currency varchar(45),
+	TPV decimal(48,2),
+	TPV_USD decimal(48,2),
+	Txn_Count int, 
+	Card_Volume decimal(48,2),
+	Card_Txn_Count int,
+	Card_Volume_USD decimal(48,2)
+);
+
+create table topdata (
+	Year int,
+	Month int,
+	Date date,
+	PlatformId int,
+	Gateway varchar(45),
+	Vertical varchar(45),
+	SoftwareName varchar(45),
+	ParentAccountId  varchar(45),
+	ParentName varchar(95),
+	Currency varchar(45),
+	TPV_USD decimal(48,2),
+	Card_Volume_USD decimal(48,2),
+	Txn_Count int,
+	Revenue_USD decimal(48,2)
+);
 
 create table mmf (
 	Date date,
