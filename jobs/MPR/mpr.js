@@ -7,7 +7,7 @@ var
   email           = flag ? require('./../../email').email               : require('./../email').email, 
   // destination_db  = flag ? require('./../../lib/config/localhost_db.js')  : require('./../lib/config/localhost_db.js') ,  
   destination_db  = flag ? require('./../../lib/config/finance_db.js')  : require('./../lib/config/finance_db.js') ,   
-  source_db = 'crostoli',  // crostoli or finance
+  source_db = 'finance',  // crostoli or finance
   file = path.basename(__filename.replace(/.js$/,'')),
   dir = __dirname.split(path.sep),
   folder = flag ? dir[dir.length-2] : dir.pop() ,
