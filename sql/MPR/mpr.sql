@@ -84,7 +84,7 @@ COGS_Financials as (
 		COGS_Financials_Base
 		join Initial_COGS on COGS_Financials_Base.Date = Initial_COGS.Date
 ),
-MPR as (
+MPR_temp as (
 	select
 		MPR.Date, MPR.PlatformId,MPR.Gateway,MPR.Vertical, MPR.SoftwareName, MPR.ParentAccountId, MPR.ParentName , 
 		MPR.FeePaymentType, MPR.PaymentTypeGroup ,
@@ -112,6 +112,7 @@ MPR as (
 	    MPR.Date, MPR.PlatformId, MPR.Gateway, MPR.Vertical , MPR.SoftwareName, MPR.ParentAccountId ,MPR.ParentName,
 	    MPR.FeePaymentType, MPR.PaymentTypeGroup
 )
+insert into MPR
 select
 	Date, PlatformId, SoftwareName , Gateway, Vertical,ParentAccountId, ParentName , 
 	FeePaymentType, PaymentTypeGroup ,
@@ -119,7 +120,7 @@ select
 	sum(Txn_Count)::int as Txn_Count, 	
 	sum(Revenue_Net_USD)::money as Revenue_Net_USD, sum(COGS_USD)::money as COGS_USD
 from
-	MPR
+	MPR_temp
 group by
 	Date, PlatformId, SoftwareName , Gateway, Vertical, ParentAccountId, ParentName , 
 	FeePaymentType, PaymentTypeGroup 
