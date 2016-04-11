@@ -49,7 +49,7 @@ create table analytics (
 	Card_Volume_USD decimal(48,2)
 );
 
-create table topdata (
+create table top_data (
 	Year int,
 	Month int,
 	Date date,

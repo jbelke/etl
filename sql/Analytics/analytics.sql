@@ -3,7 +3,7 @@ declare @now as date, @start as date, @end as date,
 @PaymentTypeGroup as nvarchar(max), @Network as nvarchar(max)
 
 set @now = getdate()
-set @start = dateadd(mm,(year(@now)- 1900) * 12 + month(@now) - 1 -1 , 0) 
+set @start = '2010-01-01'--dateadd(mm,(year(@now)- 1900) * 12 + month(@now) - 1 -1 , 0) 
 set @end = dateadd(d,-1 , dateadd(mm,(year(@now)- 1900) * 12 + month(@now)- 1 , 0))  
 
 -- Temp Tables
@@ -40,7 +40,8 @@ exec sp_executesql @PaymentTypeGroup
 exec sp_executesql @Network
 
 select 
-	year(txn.PostDate_r) Year ,month(txn.PostDate_r) Month,cast(dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) as date) as Date, txn.PlatformId,case	when txn.ProcessorId = 14 then 'GatewayOnly' else 'YapProcessing' end as Gateway,
+	year(txn.PostDate_r) Year ,month(txn.PostDate_r) Month,
+	cast(cast(dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) as date) as varhcar) as Date, txn.PlatformId,case	when txn.ProcessorId = 14 then 'GatewayOnly' else 'YapProcessing' end as Gateway,
 	c.Vertical ,pt.Name PaymentType ,Network.Network,ptg.PaymentTypeGroup ,cur.CharCode Currency,
 	sum(case when txn.TransactionCycleId in (1) then txn.amount else 0 end) TPV,
 	sum(case when txn.TransactionCycleId in (1) then txn.amount else 0 end
@@ -77,7 +78,8 @@ where
 	and txn.TransactionCycleId in (1) 					
 	and txn.ProcessorId not in (16)					
 group by  
-	year(txn.PostDate_r), month(txn.PostDate_r) , cast(dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) as date),txn.PlatformId, case when txn.ProcessorId = 14 then 'GatewayOnly' else 'YapProcessing' end ,							
+	year(txn.PostDate_r), month(txn.PostDate_r) , 
+	cast(cast(dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) as date) as varchar),txn.PlatformId, case when txn.ProcessorId = 14 then 'GatewayOnly' else 'YapProcessing' end ,							
 	c.Vertical ,pt.Name ,cur.CharCode ,Network.Network ,ptg.PaymentTypeGroup
 	
 select * from #Analytics	

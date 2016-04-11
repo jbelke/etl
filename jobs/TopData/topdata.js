@@ -14,7 +14,7 @@ var
   subfolder = flag ? subfolder = dir.pop() : null
   ;
 
-var sql = 'insert into topdata ('+
+var sql = 'insert into top_data ('+
     ' Year, Month, Date, PlatformId, Gateway, Vertical, '+
     ' SoftwareName, ParentAccountId, ParentName, Currency, ' +
     ' TPV, TPV_USD, Card_Volume_USD, Txn_Count, Revenue_USD ' +
@@ -23,7 +23,7 @@ var sql = 'insert into topdata ('+
 extract(source_db, file, subfolder, function(data){
   // console.log(data);
 	transform(data, function(data){
-    // console.log(data);
+    console.log(data);
 		load(data, destination_db, sql, function(){
       email(file, function(){
         console.log('Data inserted.');        
