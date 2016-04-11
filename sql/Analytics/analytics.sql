@@ -41,7 +41,7 @@ exec sp_executesql @Network
 
 select 
 	year(txn.PostDate_r) Year ,month(txn.PostDate_r) Month,
-	cast(cast(dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) as date) as varhcar) as Date, txn.PlatformId,case	when txn.ProcessorId = 14 then 'GatewayOnly' else 'YapProcessing' end as Gateway,
+	cast(cast(dateadd(d,  0, dateadd(d, -1 , dateadd(mm, (year(txn.PostDate_r) - 1900) * 12 + month(txn.PostDate_r) , 0))) as date) as varchar) as Date, txn.PlatformId,case	when txn.ProcessorId = 14 then 'GatewayOnly' else 'YapProcessing' end as Gateway,
 	c.Vertical ,pt.Name PaymentType ,Network.Network,ptg.PaymentTypeGroup ,cur.CharCode Currency,
 	sum(case when txn.TransactionCycleId in (1) then txn.amount else 0 end) TPV,
 	sum(case when txn.TransactionCycleId in (1) then txn.amount else 0 end
