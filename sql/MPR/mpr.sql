@@ -114,15 +114,15 @@ MPR_temp as (
 )
 insert into MPR
 select
-	Date, PlatformId, SoftwareName , Gateway, Vertical,ParentAccountId, ParentName , 
+	Date, PlatformId, Gateway, Vertical, SoftwareName , ParentAccountId, ParentName , 
 	FeePaymentType, PaymentTypeGroup ,
-	sum(TPV_USD)::money as TPV_USD, (sum(TPV_USD) - sum(TPV_Net_USD))::money as "Refunds/Chargebacks", sum(TPV_Net_USD)::money as TPV_Net_USD ,
+	sum(TPV_USD)::money as TPV_USD, (sum(TPV_USD) - sum(TPV_Net_USD))::money as Refunds_Chargebacks, sum(TPV_Net_USD)::money as TPV_Net_USD ,
 	sum(Txn_Count)::int as Txn_Count, 	
 	sum(Revenue_Net_USD)::money as Revenue_Net_USD, sum(COGS_USD)::money as COGS_USD
 from
 	MPR_temp
 group by
-	Date, PlatformId, SoftwareName , Gateway, Vertical, ParentAccountId, ParentName , 
+	Date, PlatformId, Gateway, Vertical, SoftwareName ,  ParentAccountId, ParentName , 
 	FeePaymentType, PaymentTypeGroup 
 
 

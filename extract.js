@@ -37,6 +37,7 @@ var executeMSSQL = function(sql, subfolder, cb) {
 
 var executePostgres = function(sql, subfolder, cb) {
 	var source_db = require('./lib/config/finance_db.js');
+	console.log('called');
 	source_db.connect(function(err){
 		source_db.query(sql, function(err,result){
 			if (err) console.log(err);
