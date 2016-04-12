@@ -8,19 +8,23 @@ var extract = function(db, file, subfolder, cb){
 	loadQuery(db, file, subfolder, cb);
 };
 
+var verify = function(sql, cb){
+	executePostgres(sql, cb);
+};
+
 var loadQuery = function(db, file, subfolder, cb) {
 	var sqlFile = subfolder ? fs.createReadStream(path.join('./../../sql',subfolder,file+'.sql')) : fs.createReadStream(path.join('./../sql',file+'.sql'));
 	sqlFile.on('data',function(chunk){data+=chunk;});
 	sqlFile.on('end',function(){
 		if(db === 'crostoli') {
-			executeMSSQL(data, subfolder, cb);		
+			executeMSSQL(data, cb);		
 		} else if (db === 'finance') {
 			executePostgres(data, cb);
 		}
 	});
 };
 
-var executeMSSQL = function(sql, subfolder, cb) {
+var executeMSSQL = function(sql, cb) {
 	var mssql = require('mssql'),
 	  source_db = require('./lib/config/crostoli_db.js')
 	  ;
@@ -35,7 +39,7 @@ var executeMSSQL = function(sql, subfolder, cb) {
 	});
 };
 
-var executePostgres = function(sql, subfolder, cb) {
+var executePostgres = function(sql, cb) {
 	var source_db = require('./lib/config/finance_db.js');
 	source_db.connect(function(err){
 		source_db.query(sql, function(err,result){
@@ -47,4 +51,5 @@ var executePostgres = function(sql, subfolder, cb) {
 };
 
 exports.extract = extract;
+exports.verify = verify;
 
