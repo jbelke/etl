@@ -7,7 +7,7 @@
 var email = function(file, cb, data){
 	email_server.send({
 	  subject: file+' job ran.',
-	  text: data,
+	  text: file+'job ran',
 	  from: 'John Skilbeck jskilbeck@yapstone.com',
 	  to: 'John Skilbeck jskilbeck@yapstone.com',
 	});
