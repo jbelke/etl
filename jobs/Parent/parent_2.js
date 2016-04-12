@@ -22,9 +22,9 @@ var sql = 'insert into Parent('+
 extract(source_db, file, subfolder, function(data){
   transform(data, function(data){
     load(data, destination_db, sql, function(){
-      // email(file, function(){
+      email(file, function(){
         console.log('Data inserted.');        
-      // });
+      });
     });
   });
 });
