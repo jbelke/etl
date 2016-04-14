@@ -69,9 +69,9 @@ create table top_data (
 create table mpr (
 	Date date,
 	PlatformId int,
+	SoftwareName varchar(45),
 	Gateway varchar(45),
 	Vertical varchar(45),
-	SoftwareName varchar(45),
 	ParentAccountId  varchar(45),
 	ParentName varchar(95),
 	FeePaymentType varchar(45),
@@ -80,9 +80,10 @@ create table mpr (
 	Refunds_Chargebacks decimal(48,2),	
 	TPV_Net_USD decimal(48,2),	
 	Txn_Count int, 
-	Revenue_Net_USD decimal(48,2),
+	Revenue decimal(48,2),
 	COGS_USD decimal(48,2)
 );
+
 
 create table mmf (
 	Date date,
