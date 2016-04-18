@@ -51,7 +51,7 @@ group by year(txn.postdate_r) , month(txn.postdate_r) , cast(dateadd(d,  0, date
 	 
 if object_id('tempdb..#TopData') is not null drop table #TopData
 select isnull(txn.Year,billing.Year) Year, isnull(txn.Month,billing.Month) Month,
-	cast(isnull(txn.Date, billing.Date) as varhcar) Date, isnull(txn.PlatformId,billing.PlatformId) PlatformId , isnull(txn.Gateway,'YapProcessing') Gateway, 
+	cast(isnull(txn.Date, billing.Date) as varchar) Date, isnull(txn.PlatformId,billing.PlatformId) PlatformId , isnull(txn.Gateway,'YapProcessing') Gateway, 
 	isnull(txn.Vertical,billing.Vertical) Vertical, coalesce(txn.SoftwareName,billing.SoftwareName,'Non-Affiliated') SoftwareName ,isnull(txn.ParentAccountId,billing.ParentAccountId) ParentAccountId ,isnull(txn.ParentName,billing.ParentName) ParentName ,
 	isnull(txn.Currency,'USD') Currency,
 	sum( isnull(txn.TPV_USD,0) ) TPV_USD,
