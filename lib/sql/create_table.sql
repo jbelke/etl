@@ -60,6 +60,7 @@ create table top_data (
 	ParentAccountId  varchar(45),
 	ParentName varchar(95),
 	Currency varchar(45),
+	TPV decimal(48,2),
 	TPV_USD decimal(48,2),
 	Card_Volume_USD decimal(48,2),
 	Txn_Count int,
