@@ -20,11 +20,12 @@ var sql = 'insert into mpr('+
     ' TPV_USD , Refunds_Chargebacks, TPV_Net_USD, Txn_Count, Revenue, COGS_USD' +
     ' ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)';
 
-extract(source_db, file, subfolder, function(data, connection_pool){
+extract(source_db, file, subfolder, function(data, connection_pool, done){
   transform(data, function(data){
     load(data, connection_pool, sql, function(){
       email(file, function(){
-        console.log('Data inserted.');        
+        console.log('Data inserted.');
+        done();        
       });
     });
   });
