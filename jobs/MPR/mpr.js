@@ -8,6 +8,7 @@ var
   // destination_db  = flag ? require('./../../lib/config/localhost_db.js')  : require('./../lib/config/localhost_db.js') ,  
   destination_db  = flag ? require('./../../lib/config/finance_db.js')  : require('./../lib/config/finance_db.js') ,   
   source_db = 'finance',  // crostoli or finance
+  connection_exists,
   file = path.basename(__filename.replace(/.js$/,'')),
   dir = __dirname.split(path.sep),
   folder = flag ? dir[dir.length-2] : dir.pop() ,
@@ -22,12 +23,14 @@ var sql = 'insert into mpr('+
 
 extract(source_db, file, subfolder, function(data, connection_pool){
   transform(data, function(data){
-    // if (source_db == 'finance' ) source_db = connection_pool;
+    if (source_db == 'finance' ) {
+      destination_db = connection_pool; connection_exists = true;
+    }
     load(data, destination_db, sql, function(){
       email(file, function(){
         console.log('Data inserted.');
       });
-    });
+    }, connection_exists);
   });
 });
 
