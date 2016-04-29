@@ -19,7 +19,7 @@ var insert = function(data, destination_db, insert_sql, cb){
 			});
 		});
 
-	// });
+	});
 	
 	cb();
 
