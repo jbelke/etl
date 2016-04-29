@@ -123,4 +123,4 @@ from
 group by
 	Date, PlatformId, SoftwareName , Gateway, Vertical, ParentAccountId, ParentName , 
 	FeePaymentType, PaymentTypeGroup 
-)
+	
