@@ -41,11 +41,11 @@ var executeMSSQL = function(sql, cb) {
 
 var executePostgres = function(sql, cb) {
 	var source_db = require('./lib/config/finance_db.js');
-	source_db.connect(function(err, client, done){
+	source_db.connect(function(err, client){
 		source_db.query(sql, function(err,result){
 			if (err) console.log(err);
-			// console.log(result);
-			cb(result.rows, client, done);
+			source_db.end();
+			cb(result.rows, client);
 		});	
 	});
 };
