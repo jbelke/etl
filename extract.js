@@ -44,8 +44,8 @@ var executePostgres = function(sql, cb) {
 	source_db.connect(function(err){
 		source_db.query(sql, function(err,result){
 			if (err) console.log(err);
-			console.log(result);
-			cb(result.rows);
+			// console.log(result);
+			cb(result.rows, source_db);
 		});	
 	});
 };

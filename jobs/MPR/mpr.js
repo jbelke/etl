@@ -20,13 +20,25 @@ var sql = 'insert into mpr('+
     ' TPV_USD , Refunds_Chargebacks, TPV_Net_USD, Txn_Count, Revenue, COGS_USD' +
     ' ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)';
 
-extract(source_db, file, subfolder, function(data){
-	transform(data, function(data){
-		load(data, destination_db, sql, function(){
+extract(source_db, file, subfolder, function(data, connection_pool){
+  transform(data, function(data){
+    load(data, connection_pool, sql, function(){
       email(file, function(){
         console.log('Data inserted.');        
       });
-		});
-	});
+    });
+  });
 });
+
+
+
+// extract(source_db, file, subfolder, function(data){
+// 	transform(data, function(data){
+// 		load(data, destination_db, sql, function(){
+//       email(file, function(){
+//         console.log('Data inserted.');        
+//       });
+// 		});
+// 	});
+// });
 
