@@ -28,7 +28,6 @@ var insert = function(data, destination_db, insert_sql, cb){
 };
 
 var insert_existing_connection = function(data, destination_db, insert_sql, cb){
-	// destination_db.connect(function(err){
 		data.map(function(item,index){
 			destination_db.query(insert_sql, item, function(err,result){
 				console.log(err || result);
@@ -38,7 +37,6 @@ var insert_existing_connection = function(data, destination_db, insert_sql, cb){
 				// }, 1 * 60 * 1000);
 			});
 		});
-	// });
 	cb();
 };
 

@@ -5,14 +5,23 @@
 
 ##### Daily #####
 	## Transaction
-		25 12 7 * * skilbjo cd $JOBS"/Transaction" ; node load_transaction.js >/dev/null
+		# 25 12 7 * * skilbjo cd $JOBS"/Transaction" ; node load_transaction.js >/dev/null
 
 ##### Monthly #####
+	## TopData
+		0 20 5 * * skilbjo cd $JOBS"/Analytics" ; node analytics.js >/dev/null
+
+	## Analytics
+		0 20 10 * * skilbjo cd $JOBS"/TopData" ; node top_data.js >/dev/null		
+
+
 	## MPR
-		0 20 5 * * skilbjo cd $JOBS"/MPR" ; node mmf.js >/dev/null
+		# can you do this with a subshell?
+		0 16 10 * * skilbjo cd $JOBS"/MPR" ; node mpr_base.js >/dev/null	
+		0 20 10 * * skilbjo cd $JOBS"/MPR" ; node mpr.js >/dev/null
 
 	## MMF
-		0 20 5 * * skilbjo cd $JOBS"/MPR" ; node mmf.js >/dev/null
+		0 20 10 * * skilbjo cd $JOBS"/MMF" ; node mmf.js >/dev/null
 
 
 
