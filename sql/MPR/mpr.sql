@@ -117,7 +117,7 @@ select
 	FeePaymentType, PaymentTypeGroup ,
 	sum(TPV_USD) as TPV_USD, (sum(TPV_USD) - sum(TPV_Net_USD)) as "Refunds_Chargebacks", sum(TPV_Net_USD) as TPV_Net_USD ,
 	sum(Txn_Count) as Txn_Count, 	
-	sum(Revenue_Net_USD)::money as Revenue_Net_USD, sum(COGS_USD)::money as COGS_USD
+	sum(Revenue_Net_USD) as Revenue_Net_USD, round(sum(COGS_USD),2) as COGS_USD
 from
 	MPR
 group by
