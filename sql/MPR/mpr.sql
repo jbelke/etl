@@ -113,14 +113,13 @@ MPR as (
 			MPR.FeePaymentType, MPR.PaymentTypeGroup
 )
 select
-	Date, PlatformId, SoftwareName , Gateway, Vertical,ParentAccountId, ParentName , 
+	Date::varchar Date, PlatformId, SoftwareName , Gateway, Vertical,ParentAccountId, ParentName , 
 	FeePaymentType, PaymentTypeGroup ,
-	sum(TPV_USD)::money as TPV_USD, (sum(TPV_USD) - sum(TPV_Net_USD))::money as "Refunds/Chargebacks", sum(TPV_Net_USD)::money as TPV_Net_USD ,
-	sum(Txn_Count)::int as Txn_Count, 	
+	sum(TPV_USD) as TPV_USD, (sum(TPV_USD) - sum(TPV_Net_USD)) as "Refunds_Chargebacks", sum(TPV_Net_USD) as TPV_Net_USD ,
+	sum(Txn_Count) as Txn_Count, 	
 	sum(Revenue_Net_USD)::money as Revenue_Net_USD, sum(COGS_USD)::money as COGS_USD
 from
 	MPR
 group by
-	Date, PlatformId, SoftwareName , Gateway, Vertical, ParentAccountId, ParentName , 
+	Date::varchar, PlatformId, SoftwareName , Gateway, Vertical, ParentAccountId, ParentName , 
 	FeePaymentType, PaymentTypeGroup 
-	
