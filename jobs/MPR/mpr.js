@@ -16,7 +16,7 @@ var
 
 var sql = 'insert into mpr('+
     ' Date, PlatformId, SoftwareName, Gateway, Vertical, '+
-    ' ParentAccountId, ParentName, FeePaymentType, PaymentTypeGroup ' + 
+    ' ParentAccountId, ParentName, FeePaymentType, PaymentTypeGroup,  ' + 
     ' TPV_USD , Refunds_Chargebacks, TPV_Net_USD, Txn_Count, Revenue, COGS_USD' +
     ' ) values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)';
 
