@@ -23,7 +23,7 @@ var sql = 'insert into mpr('+
 extract(source_db, file, subfolder, function(data, connection_pool){
   transform(data, function(data){
     // if (source_db == 'finance' ) source_db = connection_pool;
-    load(data, source_db, sql, function(){
+    load(data, destination_db, sql, function(){
       email(file, function(){
         console.log('Data inserted.');
       });
